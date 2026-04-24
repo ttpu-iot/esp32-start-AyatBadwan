@@ -1,31 +1,23 @@
- #include "Arduino.h"
+#include "Arduino.h"
 
-#define RED_LED_PIN 26
-#define GREEN_LED_PIN 27
-#define BLUE_LED_PIN 14
-#define YELLOW_LED_PIN 12
-#define BUTTON_PIN 25
-#define LIGHT_SENSOR_PIN 33
-#define BUZZER_PIN 32
-#define SERVO_PIN 5
+#define BUTTON 25
+#define GREEN 27
 
+bool state = false;
 
-
-
-void setup(void) 
-{
-    pinMode(RED_LED_PIN, OUTPUT); // RED LED
+void setup() {
+  Serial.begin(115200);
+  pinMode(GREEN, OUTPUT);
+  pinMode(BUTTON, INPUT_PULLDOWN);
 }
 
-
-/****************************************************/
-void loop(void) 
-{
-    digitalWrite(RED_LED_PIN, HIGH); // Turn RED ON
-    Serial.println("RED ON");
-    delay(1000); // Wait for 1000 ms
-
-    digitalWrite(RED_LED_PIN, LOW); // Turn RED OFF
-    Serial.println("RED OFF");
-    delay(1000); // Wait for 1000 ms
+void loop() {
+  if (digitalRead(BUTTON)) {
+    state = !state;
+    digitalWrite(GREEN, state);
+    Serial.print("GREEN=");
+    Serial.println(state);
+    delay(200); // simple debounce
+    while(digitalRead(BUTTON)); // wait for release
+  }
 }
