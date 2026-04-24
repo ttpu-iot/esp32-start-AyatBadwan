@@ -1,4 +1,4 @@
- #include "Arduino.h"
+#include "Arduino.h"
 
 #define RED_LED_PIN 26
 #define GREEN_LED_PIN 27
